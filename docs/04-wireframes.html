@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Chef Agent — Interactive Wireframes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#F5F5F0;font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;padding:32px 16px;min-height:100vh}
+  h1{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;color:#1A1A1A;margin-bottom:4px}
+  .subtitle{font-size:13px;color:#888;margin-bottom:24px}
+  .wrapper{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:680px}
+  .tab-bar{background:#fff;border-radius:12px;padding:12px 14px 10px;width:100%;border:1px solid #E5E5E0}
+  .tab-label{font-size:11px;color:#666;font-weight:500;margin-bottom:8px}
+  .tabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab-btn{padding:4px 11px;border-radius:20px;font-size:10px;cursor:pointer;white-space:nowrap;flex-shrink:0;border:1px solid #DDD;background:transparent;color:#666;font-family:'Inter',sans-serif;transition:all .15s}
+  .tab-btn.active{background:#FF6A00;border-color:#FF6A00;color:#fff}
+  .phone{width:272px;height:572px;border-radius:42px;overflow:hidden;border:2px solid #2A2A2A;background:#111;display:flex;flex-direction:column;position:relative;flex-shrink:0}
+  .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:72px;height:22px;background:#111;border-radius:0 0 12px 12px;z-index:10}
+  .status-bar{height:26px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:#0D0D0D;flex-shrink:0}
+  .phone-body{flex:1;overflow:hidden;display:flex;flex-direction:column}
+  .phone-scroll{flex:1;overflow-y:auto;scrollbar-width:none;background:#0D0D0D;color:#fff}
+  .phone-scroll::-webkit-scrollbar{display:none}
+  .home-bar{height:18px;display:flex;align-items:center;justify-content:center;background:#0D0D0D}
+  .nav-row{display:flex;align-items:center;gap:12px}
+  .nav-btn{padding:7px 16px;border-radius:8px;border:1px solid #DDD;background:#fff;color:#555;cursor:pointer;font-size:12px;font-family:'Inter',sans-serif;transition:opacity .2s}
+  .nav-btn:disabled{opacity:0.35;cursor:not-allowed}
+  .nav-count{font-size:11px;color:#999;min-width:50px;text-align:center}
+  .legend{background:#fff;border-radius:12px;padding:14px 16px;width:100%;border:1px solid #E5E5E0}
+  .legend h3{font-size:11px;font-weight:500;color:#666;margin-bottom:10px;letter-spacing:0.3px}
+  .legend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px}
+  .legend-item{font-size:10px;color:#888;display:flex;align-items:center;gap:5px}
+  .legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+  .pf{font-family:'Playfair Display',Georgia,serif}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div style="text-align:center">
+    <h1>Professional Chef Agent</h1>
+    <p class="subtitle">Interactive Wireframes — 10 screens · MVP User Journey · Deliverable 4 of 8</p>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-label" id="tab-label">1 / 10 — Home</div>
+    <div class="tabs" id="tabs"></div>
+  </div>
+
+  <div class="phone" id="phone">
+    <div class="notch"></div>
+    <div class="status-bar">
+      <span style="font-size:10px;font-weight:500;color:#888">9:41</span>
+      <div style="display:flex;gap:4px;align-items:center;color:#888;font-size:11px">
+        <i class="ti ti-wifi"></i>
+        <i class="ti ti-battery"></i>
+      </div>
+    </div>
+    <div class="phone-body">
+      <div class="phone-scroll" id="screen-content"></div>
+    </div>
+    <div class="home-bar">
+      <div style="width:72px;height:3px;background:#252525;border-radius:2px"></div>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">← Previous</button>
+    <span class="nav-count" id="nav-count">1 / 10</span>
+    <button class="nav-btn" id="next-btn" onclick="navigate(1)">Next →</button>
+  </div>
+
+  <div class="legend">
+    <h3>Design tokens</h3>
+    <div class="legend-grid">
+      <div class="legend-item"><div class="legend-dot" style="background:#FF6A00"></div>Primary — #FF6A00</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1F7A3D"></div>Secondary — #1F7A3D</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FFC107"></div>Accent — #FFC107</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#0D0D0D"></div>Background — #0D0D0D</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1A1A1A"></div>Card — #1A1A1A</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#9CA3AF"></div>Muted text — #9CA3AF</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const C={bg:'#0D0D0D',card:'#1A1A1A',card2:'#212121',border:'#2A2A2A',primary:'#FF6A00',secondary:'#1F7A3D',accent:'#FFC107',text:'#FFF',muted:'#9CA3AF',dim:'#444'};
+const labels=['Home','Camera','Detecting','Confirm','Preferences','Generating','Browse','Recipe detail','Cook mode','Done'];
+let cur=0;
+
+const detected=[
+  {n:'Chicken breast',conf:'high'},{n:'Broccoli',conf:'high'},{n:'Garlic',conf:'high'},
+  {n:'Jasmine rice',conf:'medium'},{n:'Ginger',conf:'medium'},{n:'Soy sauce',conf:'low'}
+];
+let confirmedItems=[...detected];
+
+const recipes=[
+  {id:1,title:'Garlic Chicken Stir-Fry',cuisine:'Chinese',time:25,diff:'Intermediate'},
+  {id:2,title:'Chicken Fried Rice',cuisine:'Japanese',time:30,diff:'Beginner'},
+  {id:3,title:'Ginger Broth Bowl',cuisine:'Thai',time:20,diff:'Intermediate'}
+];
+
+const steps=[
+  {n:1,text:'Slice chicken breast into thin strips against the grain. Season lightly with salt.',timer:null},
+  {n:2,text:'Cut broccoli into bite-sized florets. Finely mince 4 garlic cloves.',timer:null},
+  {n:3,text:'Heat 2 tbsp vegetable oil in a wok over high heat until it shimmers.',timer:120},
+  {n:4,text:'Add chicken in a single layer. Sear without stirring for 2 min, then flip.',timer:240},
+  {n:5,text:'Add broccoli and garlic. Stir-fry 3–4 min until bright green and tender-crisp.',timer:210},
+  {n:6,text:'Season to taste. Serve immediately over steamed jasmine rice.',timer:null}
+];
+let cookStep=2;
+let skillLevel='intermediate';
+let dietPrefs=['gluten-free'];
+let feedbackRated=null;
+
+function btn(label,onclick,variant='primary',extra=''){
+  const styles={
+    primary:`background:${C.primary};color:#fff;border:none`,
+    ghost:`background:${C.card2};color:${C.muted};border:1px solid ${C.border}`,
+    outline:`background:transparent;color:${C.primary};border:1px solid ${C.primary}`
+  };
+  return `<button onclick="${onclick}" style="display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:12px;border-radius:12px;font-size:13px;font-weight:500;cursor:pointer;font-family:Inter,sans-serif;${styles[variant]};${extra}">${label}</button>`;
+}
+
+function back(to){
+  return `<button onclick="goTo(${to})" style="background:none;border:none;color:${C.muted};cursor:pointer;display:flex;align-items:center;gap:4px;font-size:12px;font-family:Inter,sans-serif;padding:0;margin-bottom:10px"><i class="ti ti-arrow-left" style="font-size:15px"></i> Back</button>`;
+}
+
+function confBadge(conf){
+  const colors={high:C.secondary,medium:C.accent,low:'#EF4444'};
+  return `<div style="width:6px;height:6px;border-radius:50%;background:${colors[conf]};flex-shrink:0"></div>`;
+}
+
+const screens={
+  0:()=>`
+    <div style="display:flex;flex-direction:column;height:100%;background:${C.bg}">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 24px">
+        <div style="width:68px;height:68px;border-radius:20px;background:${C.primary};display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+          <i class="ti ti-flame" style="color:#fff;font-size:34px"></i>
+        </div>
+        <div class="pf" style="font-size:24px;font-weight:500;color:${C.text};margin-bottom:5px">Chef Agent</div>
+        <div style="font-size:12px;color:${C.muted};margin-bottom:44px;text-align:center;line-height:1.6">Cook what's already in your fridge</div>
+        ${btn('<i class="ti ti-camera"></i> Scan ingredients','goTo(1)')}
+      </div>
+      <div style="padding:0 20px 26px">
+        <div style="background:${C.card};border:1px solid ${C.border};border-radius:12px;padding:13px 16px">
+          <div style="font-size:10px;color:${C.dim};letter-spacing:0.6px;margin-bottom:7px">Your preferences</div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px">
+            <span style="color:${C.muted}">Skill level</span><span style="color:${C.accent}">${skillLevel.charAt(0).toUpperCase()+skillLevel.slice(1)}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:12px">
+            <span style="color:${C.muted}">Dietary</span><span style="color:${C.accent}">${dietPrefs.join(', ')||'None set'}</span>
+          </div>
+        </div>
+      </div>
+    </div>`,
+
+  1:()=>`
+    <div style="display:flex;flex-direction:column;height:100%;background:${C.bg};padding:14px 20px">
+      ${back(0)}
+      <div class="pf" style="font-size:16px;color:${C.text};margin-bottom:6px">Scan fridge</div>
+      <div style="font-size:11px;color:${C.muted};margin-bottom:12px;text-align:center">Take 1–3 photos for best detection</div>
+      <div style="flex:1;position:relative;border:1.5px dashed ${C.border};border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;margin-bottom:14px;min-height:200px">
+        <div style="position:absolute;top:10px;left:10px;width:20px;height:20px;border-top:2px solid ${C.primary};border-left:2px solid ${C.primary}"></div>
+        <div style="position:absolute;top:10px;right:10px;width:20px;height:20px;border-top:2px solid ${C.primary};border-right:2px solid ${C.primary}"></div>
+        <div style="position:absolute;bottom:10px;left:10px;width:20px;height:20px;border-bottom:2px solid ${C.primary};border-left:2px solid ${C.primary}"></div>
+        <div style="position:absolute;bottom:10px;right:10px;width:20px;height:20px;border-bottom:2px solid ${C.primary};border-right:2px solid ${C.primary}"></div>
+        <i class="ti ti-camera" style="font-size:38px;color:${C.dim}"></i>
+        <div style="font-size:11px;color:${C.dim};text-align:center;padding:0 24px">Point at fridge contents</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        ${btn('<i class="ti ti-photo"></i> Library','goTo(2)','ghost')}
+        ${btn('<i class="ti ti-camera"></i> Capture','goTo(2)')}
+      </div>
+    </div>`,
+
+  2:()=>`
+    <div style="display:flex;flex-direction:column;height:100%;background:${C.bg};align-items:center;justify-content:center;padding:24px">
+      <div style="display:flex;gap:8px;margin-bottom:24px">
+        ${[1,2].map(i=>`<div style="width:54px;height:54px;border-radius:10px;background:${C.card};border:1px solid ${C.border};display:flex;align-items:center;justify-content:center"><i class="ti ti-photo" style="color:${C.dim};font-size:20px"></i></div>`).join('')}
+      </div>
+      <div style="width:50px;height:50px;border-radius:50%;border:3px solid ${C.border};border-top-color:${C.primary};margin-bottom:18px;animation:spin 0.9s linear infinite"></div>
+      <div class="pf" style="font-size:17px;color:${C.text};margin-bottom:10px">Identifying ingredients</div>
+      ${['Scanning photo 1 of 2...','Looking for produce...','Detecting proteins...'].map((m,i)=>`
+        <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:${i===0?C.accent:C.dim};margin-bottom:5px;${i===0?'animation:pulse 1.4s ease infinite':''}">
+          <div style="width:5px;height:5px;border-radius:50%;background:${i===0?C.accent:C.secondary};flex-shrink:0"></div>${m}
+        </div>`).join('')}
+      <button onclick="goTo(3)" style="margin-top:22px;background:none;border:1px solid ${C.border};color:${C.muted};border-radius:8px;padding:6px 14px;font-size:11px;cursor:pointer;font-family:Inter,sans-serif">Skip →</button>
+    </div>`,
+
+  3:()=>{
+    const cc={high:C.secondary,medium:C.accent,low:'#EF4444'};
+    return `
+    <div style="display:flex;flex-direction:column;height:100%;background:${C.bg}">
+      <div style="padding:14px 20px 0">
+        ${back(2)}
+        <div class="pf" style="font-size:16px;color:${C.text};margin-bottom:4px">Confirm ingredients</div>
+        <div style="font-size:11px;color:${C.muted};margin-bottom:8px">${confirmedItems.length} detected · tap × to remove</div>
+        <div style="display:flex;gap:10px;margin-bottom:10px">
+          ${['high','medium','low'].map(c=>`<div style="display:flex;align-items:center;gap:4px;font-size:10px;color:${C.muted}"><div style="width:6px;height:6px;border-radius:50%;background:${cc[c]}"></div>${c}</div>`).join('')}
+        </div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:0 20px;scrollbar-width:none">
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px">
+          ${confirmedItems.map(item=>`
+            <div style="display:flex;align-items:center;gap:5px;background:${C.card};border:1px solid ${item.conf==='high'?C.secondary:item.conf==='medium'?C.accent:C.border};border-radius:20px;padding:6px 10px;font-size:11px;color:${C.text}">
+              ${confBadge(item.conf)}${item.n}
+              <button onclick="removeIngredient('${item.n}')" style="background:none;border:none;color:${C.muted};cursor:pointer;padding:0;font-size:14px;line-height:1;margin-left:1px">×</button>
+            </div>`).join('')}
+          <div style="display:flex;align-items:center;gap:4px;border:1px dashed ${C.border};border-radius:20px;padding:6px 11px;font-size:11px;color:${C.dim};cursor:pointer">
+            <i class="ti ti-plus" style="font-size:11px"></i> Add
+          </div>
+        </div>
+      </div>
+      <div style="padding:10px 20px 22px">
+        ${btn(`Continue with ${confirmedItems.length} ingredients →`,'goTo(4)')}
+      </div>
+    </div>`;
+  },
+
+  4:()=>{
+    const skills=[
+      {id:'beginner',label:'Beginner',desc:'Simple techniques · under 30 min'},
+      {id:'intermediate',label:'Intermediate',desc:'Moderate skills · 30–60 min'},
+      {id:'advanced',label:'Advanced',desc:'Complex techniques · any duration'}
+    ];
+    const diets=['Vegetarian','Vegan','Gluten-free','Dairy-free','Nut-free','Halal','Kosher'];
+    return `
+    <div style="display:flex;flex-direction:column;height:100%;background:${C.bg}">
+      <div style="padding:14px 20px 0">
+        ${back(3)}
+        <div class="pf" style="font-size:16px;color:${C.text};margin-bottom:10px">Preferences</div>
+        <div style="font-size:10px;color:${C.muted};letter-spacing:0.5px;margin-bottom:8px">Skill level</div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:0 20px;scrollbar-width:none">
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px">
+          ${skills.map(s=>`
+            <div onclick="setSkill('${s.id}')" style="background:${C.card};border-radius:12px;padding:11px 14px;cursor:pointer;border:1.5px solid ${skillLevel===s.id?C.primary:C.border}">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
+                <span style="font-size:13px;color:${C.text};font-weight:500">${s.label}</span>
+                ${skillLevel===s.id?`<div style="width:16px;height:16px;border-radius:50%;background:${C.primary};display:flex;align-items:center;justify-content:center"><i class="ti ti-check" style="font-size:10px;color:#fff"></i></div>`:''}
+              </div>
+              <div style="font-size:10px;color:${C.muted}">${s.desc}</div>
+            </div>`).join('')}
+        </div>
+        <div style="font-size:10px;color:${C.muted};letter-spacing:0.5px;margin-bottom:8px">Dietary restrictions</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+          ${diets.map(d=>{
+            const active=dietPrefs.includes(d.toLowerCase());
+            return `<div onclick="toggleDiet('${d.toLowerCase()}')" style="padding:5px 12px;border-radius:20px;font-size:11px;cursor:pointer;background:${active?C.primary:'transparent'};border:1px solid ${active?C.primary:C.border};color:${active?'#fff':C.muted}">${d}</div>`;
+          }).join('')}
+        </div>
+        <div style="background:${C.card};border:1px solid ${C.border};border-radius:10px;padding:9px 13px;margin-bottom:10px">
+          <div style="font-size:10px;color:${C.muted};margin-bottom:3px">Custom restriction</div>
+          <div style="font-size:11px;color:${C.dim}">Add any other dietary needs...</div>
+        </div>
+      </div>
+      <div style="padding:10px 20px 22px">
+        ${btn('<i class="ti ti-star"></i> Generate recipes','goTo(5)')}
+      </div>
+    </div>`;
+  },
+
+  5:()=>`
+    <div style="display:flex;flex-direction:column;height:100%;background:${C.bg};align-items:center;justify-content:center;padding:24px">
+      <div style="width:56px;height:56px;border-radius:50%;border:3px solid ${C.border};border-top-color:${C.primary};margin-bottom:22px;animation:spin 0.9s linear infinite"></div>
+      <div class="pf" style="font-size:19px;color:${C.text};margin-bottom:5px;text-align:center">Finding your recipes...</div>
+      <div style="font-size:11px;color:${C.muted};text-align:center;margin-bottom:22px;line-height:1.7">
+        Matching ${confirmedItems.length} ingredients<br>${skillLevel.charAt(0).toUpperCase()+skillLevel.slice(1)} · ${dietPrefs.join(', ')||'No restrictions'}
+      </div>
+      ${['Checking cache for similar ingredient sets...','Building 3 diverse cuisine recipes...','Adjusting for skill level...'].map((m,i)=>`
+        <div style="display:flex;align-items:center;gap:7px;font-size:11px;margin-bottom:5px;color:${i===1?C.accent:C.dim};${i===1?'animation:pulse 1.5s ease infinite':''}">
+          <div style="width:5px;height:5px;border-radius:50%;background:${i===1?C.accent:C.secondary};flex-shrink:0"></div>${m}
+        </div>`).join('')}
+      <button onclick="goTo(6)" style="margin-top:24px;background:none;border:1px solid ${C.border};color:${C.muted};border-radius:8px;padding:6px 14px;font-size:11px;cursor:pointer;font-family:Inter,sans-serif">Skip →</button>
+    </div>`,
+
+  6:()=>`
+    <div style="display:flex;flex-direction:column;height:100%;background:${C.bg}">
+      <div style="padding:14px 20px 10px">
+        <div class="pf" style="font-size:20px;color:${C.text};margin-bottom:2px">Your recipes</div>
+        <div style="font-size:11px;color:${C.muted}">3 recipes · ${dietPrefs.join(', ')||'no restrictions'} · ${skillLevel}</div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:0 20px;scrollbar-width:none">
+        ${recipes.map((r,idx)=>`
+          <div onclick="goTo(7)" style="background:${C.card};border:1px solid ${C.border};border-radius:14px;padding:13px;margin-bottom:9px;cursor:pointer;border-left:3px solid ${[C.primary,C.secondary,C.accent][idx]}">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+              <div class="pf" style="font-size:14px;color:${C.text};flex:1;margin-right:8px;line-height:1.3">${r.title}</div>
+              <div style="background:${C.card2};color:${C.muted};font-size:10px;padding:2px 7px;border-radius:20px;white-space:nowrap">${r.cuisine}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="display:flex;gap:3px;align-items:center;font-size:10px;color:${C.muted}">
+                <i class="ti ti-clock" style="font-size:10px"></i>${r.time} min
+              </div>
+              <div style="display:flex;gap:3px;align-items:center;font-size:10px;color:${C.muted}">
+                <i class="ti ti-star" style="font-size:10px"></i>${r.diff}
+              </div>
+              <div style="margin-left:auto;color:${C.primary}"><i class="ti ti-arrow-right" style="font-size:13px"></i></div>
+            </div>
+          </div>`).join('')}
+      </div>
+      <div style="padding:8px 20px 20px">
+        ${btn('<i class="ti ti-refresh"></i> Generate new recipes','goTo(4)','ghost')}
+      </div>
+    </div>`,
+
+  7:()=>`
+    <div style="display:flex;flex-direction:column;height:100%;background:${C.bg}">
+      <div style="padding:14px 20px 0">
+        ${back(6)}
+        <div style="display:flex;gap:6px;margin-bottom:7px">
+          <span style="background:${C.primary}22;color:${C.primary};font-size:10px;padding:2px 9px;border-radius:20px">Chinese</span>
+          <span style="background:${C.secondary}22;color:${C.secondary};font-size:10px;padding:2px 9px;border-radius:20px">Gluten-free</span>
+        </div>
+        <div class="pf" style="font-size:19px;color:${C.text};line-height:1.3;margin-bottom:10px">Garlic Chicken Stir-Fry</div>
+        <div style="display:flex;background:${C.card};border:1px solid ${C.border};border-radius:10px;margin-bottom:12px">
+          ${[['25','min'],['6','steps'],['2','servings']].map(([v,l],i)=>`
+            <div style="flex:1;text-align:center;padding:9px 0;${i<2?`border-right:1px solid ${C.border}`:''}">
+              <div style="font-size:15px;color:${C.primary};font-weight:500">${v}</div>
+              <div style="font-size:9px;color:${C.muted}">${l}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:0 20px;scrollbar-width:none">
+        <div style="font-size:10px;color:${C.muted};letter-spacing:0.5px;margin-bottom:7px">Ingredients</div>
+        ${[['Chicken breast','2 pieces',true],['Broccoli','2 cups',true],['Garlic','4 cloves',true],
+           ['Jasmine rice','1 cup',true],['Vegetable oil†','2 tbsp',false],['Salt†','to taste',false]].map(([n,q,f])=>`
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid ${C.border};font-size:12px">
+            <span style="color:${f?C.text:C.muted}">${n}</span><span style="color:${C.muted}">${q}</span>
+          </div>`).join('')}
+        <div style="font-size:9px;color:${C.dim};margin-top:5px;margin-bottom:12px">† pantry staple assumed available</div>
+        <div style="font-size:10px;color:${C.muted};letter-spacing:0.5px;margin-bottom:7px">Steps overview</div>
+        ${steps.slice(0,3).map(s=>`
+          <div style="display:flex;gap:9px;margin-bottom:9px;align-items:flex-start">
+            <div style="width:18px;height:18px;border-radius:50%;background:${C.primary};display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;flex-shrink:0;margin-top:2px">${s.n}</div>
+            <div style="font-size:11px;color:${C.muted};line-height:1.5;flex:1">${s.text.substring(0,62)}...</div>
+          </div>`).join('')}
+        <div style="font-size:11px;color:${C.primary};margin-bottom:14px;cursor:pointer">+ 3 more steps</div>
+      </div>
+      <div style="padding:10px 20px 22px">
+        ${btn('<i class="ti ti-player-play"></i> Start cooking','goTo(8)')}
+      </div>
+    </div>`,
+
+  8:()=>{
+    const s=steps[cookStep];
+    const pct=Math.round(((cookStep+1)/steps.length)*100);
+    return `
+    <div style="display:flex;flex-direction:column;height:100%;background:${C.bg}">
+      <div style="padding:14px 20px 0">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:${C.muted};margin-bottom:7px">
+          <span>Garlic Chicken Stir-Fry</span><span>Step ${cookStep+1} of ${steps.length}</span>
+        </div>
+        <div style="height:3px;background:${C.border};border-radius:2px;margin-bottom:12px">
+          <div style="height:100%;width:${pct}%;background:${C.primary};border-radius:2px;transition:width .3s"></div>
+        </div>
+      </div>
+      <div style="flex:1;padding:0 20px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+        <div style="background:${C.card};border:1px solid ${C.border};border-radius:16px;padding:18px">
+          <div style="font-size:9px;color:${C.primary};letter-spacing:0.8px;margin-bottom:8px">Step ${cookStep+1}</div>
+          <div class="pf" style="font-size:16px;color:${C.text};line-height:1.7">${s.text}</div>
+        </div>
+        ${s.timer?`
+        <div style="background:${C.card2};border:1px solid ${C.border};border-radius:12px;padding:11px 15px;display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:9px;color:${C.muted};margin-bottom:2px">Timer</div>
+            <div style="font-size:20px;color:${C.accent};font-weight:500">${Math.floor(s.timer/60)}:${String(s.timer%60).padStart(2,'0')}</div>
+          </div>
+          <button style="background:${C.primary};border:none;border-radius:9px;padding:7px 15px;color:#fff;cursor:pointer;font-size:11px;display:flex;align-items:center;gap:5px;font-family:Inter,sans-serif">
+            <i class="ti ti-player-play"></i> Start
+          </button>
+        </div>`:''}
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+          ${btn('<i class="ti ti-arrow-left"></i> Prev',cookStep>0?'prevStep()':'','ghost')}
+          ${cookStep<steps.length-1?btn('Next <i class="ti ti-arrow-right"></i>','nextStep()'):btn('<i class="ti ti-check"></i> Done!','goTo(9)')}
+        </div>
+      </div>
+    </div>`;
+  },
+
+  9:()=>`
+    <div style="display:flex;flex-direction:column;height:100%;background:${C.bg};align-items:center;justify-content:center;padding:28px 24px;text-align:center">
+      <div style="width:60px;height:60px;border-radius:50%;background:${C.secondary}22;display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+        <i class="ti ti-check" style="color:${C.secondary};font-size:28px"></i>
+      </div>
+      <div class="pf" style="font-size:22px;color:${C.text};margin-bottom:5px">Meal complete!</div>
+      <div style="font-size:12px;color:${C.muted};margin-bottom:26px;line-height:1.5">How was the Garlic Chicken Stir-Fry?</div>
+      <div style="display:flex;gap:18px;margin-bottom:20px">
+        <button onclick="rateRecipe('up')" style="width:56px;height:56px;border-radius:50%;cursor:pointer;background:${feedbackRated==='up'?C.secondary+'33':'transparent'};border:2px solid ${feedbackRated==='up'?C.secondary:C.border};display:flex;align-items:center;justify-content:center;transition:all .2s">
+          <i class="ti ti-thumb-up" style="color:${feedbackRated==='up'?C.secondary:C.muted};font-size:24px"></i>
+        </button>
+        <button onclick="rateRecipe('down')" style="width:56px;height:56px;border-radius:50%;cursor:pointer;background:${feedbackRated==='down'?'#EF444433':'transparent'};border:2px solid ${feedbackRated==='down'?'#EF4444':C.border};display:flex;align-items:center;justify-content:center;transition:all .2s">
+          <i class="ti ti-thumb-down" style="color:${feedbackRated==='down'?'#EF4444':C.muted};font-size:24px"></i>
+        </button>
+      </div>
+      ${feedbackRated?`<div style="font-size:11px;color:${C.muted};margin-bottom:18px;max-width:170px;line-height:1.5">${feedbackRated==='up'?"Great! This helps improve future recipe picks.":"Thanks, we'll work to improve this."}</div>`:''}
+      <div style="width:200px">
+        ${btn('<i class="ti ti-home"></i> Back to home','resetAndGoHome()')}
+      </div>
+    </div>`
+};
+
+function goTo(n){cur=n;render()}
+function navigate(dir){cur=Math.max(0,Math.min(labels.length-1,cur+dir));render()}
+function removeIngredient(name){confirmedItems=confirmedItems.filter(x=>x.n!==name);render()}
+function setSkill(s){skillLevel=s;render()}
+function toggleDiet(d){dietPrefs=dietPrefs.includes(d)?dietPrefs.filter(x=>x!==d):[...dietPrefs,d];render()}
+function prevStep(){if(cookStep>0){cookStep--;render()}}
+function nextStep(){if(cookStep<steps.length-1){cookStep++;render()}}
+function rateRecipe(r){feedbackRated=r;render()}
+function resetAndGoHome(){confirmedItems=[...detected];cookStep=2;feedbackRated=null;cur=0;render()}
+
+function render(){
+  document.getElementById('screen-content').innerHTML=screens[cur]();
+  document.getElementById('tab-label').textContent=`${cur+1} / ${labels.length} — ${labels[cur]}`;
+  document.getElementById('nav-count').textContent=`${cur+1} / ${labels.length}`;
+  document.getElementById('prev-btn').disabled=cur===0;
+  document.getElementById('next-btn').disabled=cur===labels.length-1;
+  const tabs=document.getElementById('tabs');
+  tabs.innerHTML=labels.map((l,i)=>`<button class="tab-btn${i===cur?' active':''}" onclick="goTo(${i})">${i+1}. ${l}</button>`).join('');
+}
+
+render();
+</script>
+</body>
+</html>
