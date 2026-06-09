@@ -1,0 +1,15 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+redis_data/
+*.egg-info/
+dist/
+.DS_Store
+ios/node_modules/
+ios/.expo/
